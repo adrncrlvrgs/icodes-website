@@ -137,7 +137,7 @@ const FinderQuestions = () => {
 										</>
 									)}
 
-								{currentCard >= 14 && (
+								{currentCard >= questionLength - 3 && (
 									<Button
 										onClick={handleNext}
 										variant={'solid'}

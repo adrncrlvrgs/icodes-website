@@ -1112,8 +1112,10 @@ export const CusBookingStatus = ({
 					Select
 				</option>
 				<option value='Pending'>Pending</option>
-				<option value='Confirmed'>Confirmed</option>
-				<option value='Completed'>Completed</option>
+				<option value='Approved'>Approved</option>
+				<option value='Check-In'>Check-In</option>
+				<option value='Check-Out'>Check-Out</option>
+				<option value='Declined'>Declined</option>
 			</Select>
 			<FormErrorMessage fontSize={'xs'}>{error}</FormErrorMessage>
 		</FormControl>
@@ -1551,6 +1553,113 @@ export const CusPaymentStatus = ({
 				</option>
 				<option value='Pending'>Pending</option>
 				<option value='Confirmed'>Confirmed</option>
+			</Select>
+			<FormErrorMessage fontSize={'xs'}>{error}</FormErrorMessage>
+		</FormControl>
+	);
+};
+
+export const CusSelectAllTower = ({
+	label,
+	name,
+	onChange,
+	value,
+	error,
+	onBlur,
+	touch,
+	variant = 'outline',
+	icon,
+	bgColor = 'w.300',
+	isRequired,
+}) => {
+	const { towers } = useData();
+
+	var byName = towers.slice(0);
+
+	if (byName) {
+		byName.sort(function (a, b) {
+			var x = a.TowerName.toLowerCase();
+			var y = b.TowerName.toLowerCase();
+			return x < y ? -1 : x > y ? 1 : 0;
+		});
+	}
+
+	let currentValue = value || 'Select';
+	return (
+		<FormControl
+			isInvalid={error && touch}
+			isRequired={isRequired}
+		>
+			<FormLabel fontSize={'xs'}>{label}</FormLabel>
+
+			<Select
+				name={name}
+				variant={variant}
+				bgColor={bgColor}
+				onChange={onChange}
+				onBlur={onBlur}
+				value={currentValue}
+				fontSize={'xs'}
+				icon={icon}
+			>
+				<option
+					value='Select'
+					disabled
+				>
+					Select
+				</option>
+
+				{byName.map((item, key) => {
+					return (
+						<option
+							key={key}
+							value={item.TowerName}
+						>
+							{item.TowerName}
+						</option>
+					);
+				})}
+			</Select>
+			<FormErrorMessage fontSize={'xs'}>{error}</FormErrorMessage>
+		</FormControl>
+	);
+};
+
+export const CusVisitorStatus = ({
+	label,
+	name,
+	onChange,
+	value,
+	error,
+	onBlur,
+	touch,
+	isRequired,
+}) => {
+	let currentValue = value || 'Select';
+	return (
+		<FormControl
+			isInvalid={error && touch}
+			isRequired={isRequired}
+		>
+			<FormLabel fontSize={'xs'}>{label}</FormLabel>
+
+			<Select
+				name={name}
+				variant={'filled'}
+				onChange={onChange}
+				onBlur={onBlur}
+				value={currentValue}
+				fontSize={'xs'}
+			>
+				<option
+					value='Select'
+					disabled
+				>
+					Select
+				</option>
+				<option value='Pending'>Pending</option>
+				<option value='In'>In</option>
+				<option value='Out'>Out</option>
 			</Select>
 			<FormErrorMessage fontSize={'xs'}>{error}</FormErrorMessage>
 		</FormControl>

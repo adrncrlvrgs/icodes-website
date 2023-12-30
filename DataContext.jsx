@@ -14,11 +14,12 @@ export function useData() {
 export function DataProvider({ children }) {
 	const toast = useToast();
 
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const navigate = useNavigate();
 
 	const [employees, setEmployees] = useState([{}]);
 	useEffect(() => {
+		setLoading(true);
 		const q = query(
 			collection(db, 'maintenance', 'admin', 'tbl_employees')
 		);
@@ -32,8 +33,10 @@ export function DataProvider({ children }) {
 					console.log(error);
 				}
 			);
+			setLoading(false);
 			setEmployees(employees);
 		});
+
 		return () => unsubscribe();
 	}, []);
 
@@ -47,8 +50,6 @@ export function DataProvider({ children }) {
 	}, [curUser]);
 
 	const login = async (username, password) => {
-		setLoading(true);
-
 		var hasMatch =
 			employees.filter((data) => {
 				return username == data.UName;
@@ -77,6 +78,7 @@ export function DataProvider({ children }) {
 					position: 'top',
 					duration: 3000,
 				});
+
 				setCurUser(savedUser ? JSON.parse(savedUser) : []);
 				navigate('/');
 			} else {
@@ -111,8 +113,6 @@ export function DataProvider({ children }) {
 				}
 			}
 		});
-
-		setLoading(false);
 	};
 
 	const logout = () => {
@@ -123,6 +123,7 @@ export function DataProvider({ children }) {
 
 	const [towers, setTowers] = useState([{}]);
 	useEffect(() => {
+		setLoading(true);
 		const q = query(collection(db, 'maintenance', 'admin', 'tbl_towers'));
 		const unsubscribe = onSnapshot(q, (querySnapshot) => {
 			const towers = [];
@@ -135,12 +136,14 @@ export function DataProvider({ children }) {
 				}
 			);
 			setTowers(towers);
+			setLoading(false);
 		});
 		return () => unsubscribe();
 	}, []);
 
 	const [unitTypes, setUnitTypes] = useState([{}]);
 	useEffect(() => {
+		setLoading(true);
 		const q = query(
 			collection(db, 'maintenance', 'admin', 'tbl_unitTypes')
 		);
@@ -154,6 +157,7 @@ export function DataProvider({ children }) {
 					console.log(error);
 				}
 			);
+			setLoading(false);
 			setUnitTypes(unTypes);
 		});
 		return () => unsubscribe();
@@ -161,6 +165,7 @@ export function DataProvider({ children }) {
 
 	const [unitSize, setUnitSize] = useState([{}]);
 	useEffect(() => {
+		setLoading(true);
 		const q = query(collection(db, 'maintenance', 'admin', 'tbl_unitSize'));
 		const unsubscribe = onSnapshot(q, (querySnapshot) => {
 			const unSize = [];
@@ -172,6 +177,7 @@ export function DataProvider({ children }) {
 					console.log(error);
 				}
 			);
+			setLoading(false);
 			setUnitSize(unSize);
 		});
 		return () => unsubscribe();
@@ -180,6 +186,7 @@ export function DataProvider({ children }) {
 	const [units, setUnits] = useState([{}]);
 	const [unitTowerID, setUnitTowerID] = useState([{}]);
 	useEffect(() => {
+		setLoading(true);
 		const q = query(collection(db, 'maintenance', 'admin', 'tbl_towers'));
 		const unsubscribe = onSnapshot(q, (querySnapshot) => {
 			const unit = [];
@@ -193,6 +200,7 @@ export function DataProvider({ children }) {
 					console.log(error);
 				}
 			);
+			setLoading(false);
 			setUnits(unit);
 			setUnitTowerID(unitTID);
 		});
@@ -201,6 +209,7 @@ export function DataProvider({ children }) {
 
 	const [unitData, setUnitData] = useState([{}]);
 	useEffect(() => {
+		setLoading(true);
 		const q = query(collection(db, 'maintenance', 'admin', 'tbl_setUnit'));
 		const unsubscribe = onSnapshot(q, (querySnapshot) => {
 			const unt = [];
@@ -213,7 +222,7 @@ export function DataProvider({ children }) {
 					console.log(error);
 				}
 			);
-
+			setLoading(false);
 			setUnitData(unt);
 		});
 		return () => unsubscribe();
@@ -221,6 +230,7 @@ export function DataProvider({ children }) {
 
 	const [amounts, setAmounts] = useState([{}]);
 	useEffect(() => {
+		setLoading(true);
 		const q = query(
 			collection(db, 'maintenance', 'admin', 'tbl_setAmount')
 		);
@@ -235,7 +245,7 @@ export function DataProvider({ children }) {
 					console.log(error);
 				}
 			);
-
+			setLoading(false);
 			setAmounts(amt);
 		});
 		return () => unsubscribe();
@@ -243,6 +253,7 @@ export function DataProvider({ children }) {
 
 	const [discounts, setDiscounts] = useState([{}]);
 	useEffect(() => {
+		setLoading(true);
 		const q = query(
 			collection(db, 'maintenance', 'admin', 'tbl_discounts')
 		);
@@ -256,6 +267,7 @@ export function DataProvider({ children }) {
 					console.log(error);
 				}
 			);
+			setLoading(false);
 			setDiscounts(discounts);
 		});
 		return () => unsubscribe();
@@ -263,6 +275,7 @@ export function DataProvider({ children }) {
 
 	const [payterm, setPayterm] = useState([{}]);
 	useEffect(() => {
+		setLoading(true);
 		const q = query(collection(db, 'maintenance', 'admin', 'tbl_payTerms'));
 		const unsubscribe = onSnapshot(q, (querySnapshot) => {
 			const payterm = [];
@@ -274,6 +287,7 @@ export function DataProvider({ children }) {
 					console.log(error);
 				}
 			);
+			setLoading(false);
 			setPayterm(payterm);
 		});
 		return () => unsubscribe();
@@ -281,6 +295,7 @@ export function DataProvider({ children }) {
 
 	const [unitOwners, setUnitOwners] = useState([{}]);
 	useEffect(() => {
+		setLoading(true);
 		const q = query(
 			collection(db, 'maintenance', 'admin', 'tbl_unitOwners')
 		);
@@ -295,7 +310,7 @@ export function DataProvider({ children }) {
 					console.log(error);
 				}
 			);
-
+			setLoading(false);
 			setUnitOwners(uo);
 		});
 		return () => unsubscribe();
@@ -303,6 +318,7 @@ export function DataProvider({ children }) {
 
 	const [amenities, setAmenities] = useState([{}]);
 	useEffect(() => {
+		setLoading(true);
 		const q = query(
 			collection(db, 'maintenance', 'admin', 'tbl_amenities')
 		);
@@ -316,6 +332,7 @@ export function DataProvider({ children }) {
 					console.log(error);
 				}
 			);
+			setLoading(false);
 			setAmenities(amenities);
 		});
 		return () => unsubscribe();
@@ -323,6 +340,7 @@ export function DataProvider({ children }) {
 
 	const [unitValues, setUnitValues] = useState([{}]);
 	useEffect(() => {
+		setLoading(true);
 		const q = query(
 			collection(db, 'maintenance', 'admin', 'tbl_unitValues')
 		);
@@ -336,6 +354,7 @@ export function DataProvider({ children }) {
 					console.log(error);
 				}
 			);
+			setLoading(false);
 			setUnitValues(unitValues);
 		});
 		return () => unsubscribe();
@@ -343,6 +362,7 @@ export function DataProvider({ children }) {
 
 	const [loans, setLoans] = useState([{}]);
 	useEffect(() => {
+		setLoading(true);
 		const q = query(collection(db, 'maintenance', 'admin', 'tbl_loans'));
 		const unsubscribe = onSnapshot(q, (querySnapshot) => {
 			const loans = [];
@@ -354,6 +374,7 @@ export function DataProvider({ children }) {
 					console.log(error);
 				}
 			);
+			setLoading(false);
 			setLoans(loans);
 		});
 		return () => unsubscribe();
@@ -361,6 +382,7 @@ export function DataProvider({ children }) {
 
 	const [logs, setLogs] = useState([{}]);
 	useEffect(() => {
+		setLoading(true);
 		const q = query(collection(db, 'maintenance', 'admin', 'tbl_logs'));
 		const unsubscribe = onSnapshot(q, (querySnapshot) => {
 			const log = [];
@@ -372,6 +394,7 @@ export function DataProvider({ children }) {
 					console.log(error);
 				}
 			);
+			setLoading(false);
 			setLogs(log);
 		});
 		return () => unsubscribe();
@@ -379,6 +402,7 @@ export function DataProvider({ children }) {
 
 	const [reports, setReports] = useState([{}]);
 	useEffect(() => {
+		setLoading(true);
 		const q = query(collection(db, 'maintenance', 'admin', 'tbl_reports'));
 		const unsubscribe = onSnapshot(q, (querySnapshot) => {
 			const report = [];
@@ -391,6 +415,7 @@ export function DataProvider({ children }) {
 					console.log(error);
 				}
 			);
+			setLoading(false);
 			setReports(report);
 		});
 		return () => unsubscribe();
@@ -398,6 +423,7 @@ export function DataProvider({ children }) {
 
 	const [manningSched, setManningSched] = useState([{}]);
 	useEffect(() => {
+		setLoading(true);
 		const q = query(
 			collection(
 				db,
@@ -416,6 +442,7 @@ export function DataProvider({ children }) {
 					console.log(error);
 				}
 			);
+			setLoading(false);
 			setManningSched(schedule);
 		});
 		return () => unsubscribe();
@@ -423,6 +450,7 @@ export function DataProvider({ children }) {
 
 	const [buyers, setBuyers] = useState([{}]);
 	useEffect(() => {
+		setLoading(true);
 		const q = query(
 			collection(db, 'maintenance', 'salesmanagement', 'tbl_prosBuyers')
 		);
@@ -436,6 +464,7 @@ export function DataProvider({ children }) {
 					console.log(error);
 				}
 			);
+			setLoading(false);
 			setBuyers(buyers);
 		});
 		return () => unsubscribe();
@@ -443,6 +472,7 @@ export function DataProvider({ children }) {
 
 	const [soa, setSOA] = useState([{}]);
 	useEffect(() => {
+		setLoading(true);
 		const q = query(
 			collection(db, 'maintenance', 'accountingmanagement', 'tbl_soa')
 		);
@@ -456,6 +486,7 @@ export function DataProvider({ children }) {
 					console.log(error);
 				}
 			);
+			setLoading(false);
 			setSOA(soa);
 		});
 		return () => unsubscribe();
@@ -463,6 +494,7 @@ export function DataProvider({ children }) {
 
 	const [anncmnts, setAnncmnts] = useState([{}]);
 	useEffect(() => {
+		setLoading(true);
 		const q = query(
 			collection(
 				db,
@@ -481,6 +513,7 @@ export function DataProvider({ children }) {
 					console.log(error);
 				}
 			);
+			setLoading(false);
 			setAnncmnts(anncmnts);
 		});
 		return () => unsubscribe();
@@ -488,6 +521,7 @@ export function DataProvider({ children }) {
 
 	const [mrequest, setMRequest] = useState([{}]);
 	useEffect(() => {
+		setLoading(true);
 		const q = query(
 			collection(
 				db,
@@ -506,6 +540,7 @@ export function DataProvider({ children }) {
 					console.log(error);
 				}
 			);
+			setLoading(false);
 			setMRequest(mrequest);
 		});
 		return () => unsubscribe();
@@ -513,6 +548,7 @@ export function DataProvider({ children }) {
 
 	const [transactions, setTransactions] = useState([{}]);
 	useEffect(() => {
+		setLoading(true);
 		const q = query(
 			collection(
 				db,
@@ -531,6 +567,7 @@ export function DataProvider({ children }) {
 					console.log(error);
 				}
 			);
+			setLoading(false);
 			setTransactions(transactions);
 		});
 		return () => unsubscribe();
@@ -538,6 +575,7 @@ export function DataProvider({ children }) {
 
 	const [visitors, setVisitors] = useState([{}]);
 	useEffect(() => {
+		setLoading(true);
 		const q = query(
 			collection(db, 'maintenance', 'frontdesk', 'tbl_visitors')
 		);
@@ -551,6 +589,7 @@ export function DataProvider({ children }) {
 					console.log(error);
 				}
 			);
+			setLoading(false);
 			setVisitors(visitors);
 		});
 		return () => unsubscribe();
@@ -558,6 +597,7 @@ export function DataProvider({ children }) {
 
 	const [bookings, setBookings] = useState([{}]);
 	useEffect(() => {
+		setLoading(true);
 		const q = query(
 			collection(db, 'maintenance', 'frontdesk', 'tbl_bookings')
 		);
@@ -571,7 +611,30 @@ export function DataProvider({ children }) {
 					console.log(error);
 				}
 			);
+			setLoading(false);
 			setBookings(bookings);
+		});
+		return () => unsubscribe();
+	}, []);
+
+	const [archivedBuyers, setArchivedBuyers] = useState([{}]);
+	useEffect(() => {
+		setLoading(true);
+		const q = query(
+			collection(db, 'maintenance', 'salesmanagement', 'tbl_archivedPros')
+		);
+		const unsubscribe = onSnapshot(q, (querySnapshot) => {
+			const archived = [];
+			querySnapshot.forEach(
+				(doc) => {
+					archived.push({ ...doc.data(), id: doc.id });
+				},
+				(error) => {
+					console.log(error);
+				}
+			);
+			setLoading(false);
+			setArchivedBuyers(archived);
 		});
 		return () => unsubscribe();
 	}, []);
@@ -604,11 +667,15 @@ export function DataProvider({ children }) {
 		transactions,
 		visitors,
 		bookings,
+		loading,
+		archivedBuyers,
 	};
 
 	return (
 		<DataContext.Provider value={value}>
-			{loading ? (
+			{children}
+
+			{/* {loading ? (
 				<Box
 					position='relative'
 					h='100vh'
@@ -629,8 +696,8 @@ export function DataProvider({ children }) {
 					</AbsoluteCenter>
 				</Box>
 			) : (
-				children
-			)}
+				<>{children}</>
+			)} */}
 		</DataContext.Provider>
 	);
 }

@@ -147,15 +147,10 @@ const Item = () => {
 								<CusTable
 									header={header}
 									children={
-										<CusTable
-											header={header}
-											children={
-												<AmenitiesTable
-													data={records}
-													search={search}
-													all={amenities}
-												/>
-											}
+										<AmenitiesTable
+											data={records}
+											search={search}
+											all={amenities}
 										/>
 									}
 								/>
@@ -169,9 +164,7 @@ const Item = () => {
 									gap={2}
 								>
 									<Image
-										src={
-											'./../../../../public/gifs/maintenance/document.gif'
-										}
+										src={'https://i.imgur.com/KOOp170.gif'}
 										size={'xl'}
 										objectFit={'contain'}
 									/>

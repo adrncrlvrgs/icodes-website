@@ -49,7 +49,7 @@ const Item = () => {
 
 	const [sortType, setSortType] = useState('asc');
 
-	const filter = ['T1', 'T2', 'T3'];
+	const filter = ['Pending', 'In', 'Out'];
 
 	const [filterOnChange, setFilterOnChange] = useState(false);
 	const filterPos = [];
@@ -58,8 +58,8 @@ const Item = () => {
 	if (visitors) {
 		fil.forEach((element) => {
 			visitors.filter((data) => {
-				if (data.Unit) {
-					if (data.Unit.toString().includes(element)) {
+				if (data.Status) {
+					if (data.Status == element) {
 						filterPos.push(data);
 					}
 				}
@@ -132,7 +132,7 @@ const Item = () => {
 									setFilter={setFilter}
 									setFilterOnChange={setFilterOnChange}
 									setSortType={setSortType}
-									titleLbl='Tower'
+									titleLbl='Status'
 								/>
 							</Flex>
 
@@ -164,9 +164,7 @@ const Item = () => {
 									gap={2}
 								>
 									<Image
-										src={
-											'./../../../../public/gifs/maintenance/document.gif'
-										}
+										src={'https://i.imgur.com/KOOp170.gif'}
 										size={'xl'}
 										objectFit={'contain'}
 									/>

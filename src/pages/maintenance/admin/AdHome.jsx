@@ -303,9 +303,7 @@ const Item = () => {
 											>
 												<FaBed size={25} />
 												<Text fontWeight={'bold'}>
-													{unitOwn == ''
-														? 0
-														: unitOwn.length}{' '}
+													{u == '' ? 0 : u.length}{' '}
 													UNITS
 												</Text>
 											</Flex>
@@ -388,7 +386,7 @@ const Item = () => {
 				gap={2}
 			>
 				<Image
-					src={'./gifs/maintenance/document.gif'}
+					src={'https://i.imgur.com/KOOp170.gif'}
 					size={'xl'}
 					objectFit={'contain'}
 				/>
